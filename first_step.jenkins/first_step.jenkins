@@ -1,0 +1,20 @@
+#!groovy
+// Check 192.168.14.244 (ubuntu-server) properties
+properties([disableConcurentBuilds()])
+
+pipeline {
+    agent {
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', ertifactNumToKeepStr: '10')
+        timestamps()
+    }
+    stages {
+        stage("First step") {
+            steps {
+                sh 'ssh root@192.168.14.244 \'hostname\''
+            }
+        }
+    }
+}
